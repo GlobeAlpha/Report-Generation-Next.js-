@@ -52,23 +52,35 @@ export default class Home extends React.Component {
     }
 
     displayReports() {
-
-        
+        //<Link href="/ProgressReport1">
+        //<Link >
+        //<Link href="/ProgressReport3">
         var reports = [
-            // Static route seems to  not generate the component  
-            <Link href="/ProgressReport1"> <Report Date="11.11.20" title="Progress Report#1" summary="Last known location of RCS#127:Saber is unknown, this report shows possible avenues of exploration." key={1} /></Link>,
-            <Link href="/ProgressReport2"><Report Date="11.11.20" title="Progress Report#2" summary="3 possible locations have been established" key={2} /></Link>,
-            <Link href="/ProgressReport3"><Report Date="11.11.20" title="Progress Report#3" summary="3 possible locations have been established" key={3} /></Link>
+            //each link has to have key element so unless I want  to create a link inside the report  
+     <Link href="/ProgressReport1" key={1}>
+       <Report Date="11.11.20" title="Progress Report#1" summary="Last known location of RCS#127:Saber is unknown, this report shows possible avenues of exploration." key={1}></Report>
+     </Link>,
+
+            <Link href="/ProgressReport2" key={2}>
+      <Report Date="11.11.20" title="Progress Report#2" summary="3 possible locations have been established" key={2} />,
+     </Link>,
+               
+            <Link href="/ProgressReport3" key={3}>
+                <Report Date="11.11.20" title="Progress Report#3" summary="3 possible locations have been established" key={3} /> </Link>
+      
 
         ]
 
         // Create Link for new dynamic route  by adding paramater as route  whihc will be will be filled in with dynamic after parsing
         if (this.state.submission == true) {
-            reports.push(<Link href="/title"><Report Date={this.state.Date} title={this.state.Title} summary={this.state.Summary} key={this.state.Title} /></Link>)
+            reports.push(<Link href="/title" key={4}><Report Date={this.state.Date} title={this.state.Title} summary={this.state.Summary} key={4} /></Link>)
         }
 
         return reports
     }
+
+
+
     // render method is what mounts the jsx onto the dom 
     render() {
         return (
