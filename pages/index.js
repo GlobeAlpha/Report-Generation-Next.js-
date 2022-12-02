@@ -3,7 +3,6 @@ import React from 'react'
 //import Image from 'next/image'
 import Link from "next/link"
 import Report from '../pages/Report Page'
-/*import ProgressReport from '../pages/ProgressReport1'*/
 /*import CreateReport from '../pages/Create_Report'*/
 import styles from '../styles/Home.module.css'
 
@@ -17,11 +16,12 @@ export default class Home extends React.Component {
 
         this.updateFields = this.updateFields.bind(this);
         this.handleModal = this.handleModal.bind(this);
+        this.editContent = this.editContent.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.submitData = this.submitData.bind(this);
 
 
-        this.state = { Title: '', Summary: '', Description: '', Date: '11.11.20',openModal:false ,submission: false }
+        this.state = { Title: '', Summary: '', Description: '', Date: '11.11.20',openModal:false ,edit:false,submission: false }
     }
 
 
@@ -44,17 +44,21 @@ export default class Home extends React.Component {
         }
         
     }
-
-
     
     handleModal()
     {
 
         this.setState({ openModal: true })
-
     }
 
-    modal() {
+    editContent()
+    {
+        this.setState({ edit: true })
+        console.log(this.state.edit);
+    }
+
+    modal()
+    {
 
         if (this.state.openModal == true)
         {
@@ -64,20 +68,22 @@ export default class Home extends React.Component {
                     
                     <form className={styles.modal}>
                         <button onClick={this.closeModal}>X</button>
+                        
+
                         <label htmlFor="title">
-                    <input placeholder="Title" name="Title" value={this.state.Title} onChange={this.updateFields} />
-                </label>
+                        <input placeholder="Title" name="Title" value={this.state.Title} onChange={this.updateFields} />
+                        </label>
 
-                <label htmlFor="summary">
-                    <input placeholder="Summary" name="Summary" value={this.state.Summary} onChange={this.updateFields} />
-                </label>
+                        <label htmlFor="summary">
+                        <input placeholder="Summary" name="Summary" value={this.state.Summary} onChange={this.updateFields} />
+                        </label>
 
 
-                <label htmlFor="date">
-                    <input placeholder="DD.MM.YY" name="Date" value={this.state.Date} onChange={this.updateFields} />
-                </label>
+                        <label htmlFor="date">
+                        <input placeholder="DD.MM.YY" name="Date" value={this.state.Date} onChange={this.updateFields} />
+                        </label>
 
-                <button type="submit" onClick={this.submitData} > Add new Report </button>
+                        <button type="submit" onClick={this.submitData} > Add new Report </button>
 
 
                     </form>
@@ -107,17 +113,27 @@ export default class Home extends React.Component {
         //<Link href="/ProgressReport3">
         var reports = [
             //each link has to have key element so unless I want  to create a link inside the report  
-     <Link href="/ProgressReport1" key={1}>
-       <Report Date="11.11.20" title="Progress Report#1" summary="Last known location of RCS#127:Saber is unknown, this report shows possible avenues of exploration." key={1}></Report>
-     </Link>,
+            <div key={1}>
+                <Link href="/ProgressReport1" key={1}>View Report</Link>
+                <Report Date="11.11.20" title="Progress Report#1" summary="Last known location of RCS#127:Saber is unknown, this report shows possible avenues of exploration." key={1}></Report>
+                
+            </div>,
 
-            <Link href="/ProgressReport2" key={2}>
-      <Report Date="11.11.20" title="Progress Report#2" summary="3 possible locations have been established" key={2} />,
-     </Link>,
-               
-            <Link href="/ProgressReport3" key={3}>
-                <Report Date="11.11.20" title="Progress Report#3" summary="3 possible locations have been established" key={3} /> </Link>
-      
+           <div key={2}>
+                
+                <Link href="/ProgressReport2" key={2}>View Report</Link>
+                <Report Date="11.11.20" title="Progress Report#2" summary="3 possible locations have been established" key={2} contentEditable={this.state.edit} />,
+                
+            </div>,
+
+
+            <div key = { 3 }>
+                
+                <Report Date="11.11.20" title="Progress Report#3" summary="3 possible locations have been established" key={3} >
+                    <Link href="/ProgressReport3" key={3}><button>View Report</button></Link>
+                </Report>
+                 
+            </div>
 
         ]
 
