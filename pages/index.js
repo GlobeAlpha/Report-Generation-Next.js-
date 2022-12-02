@@ -16,10 +16,12 @@ export default class Home extends React.Component {
         super(props);
 
         this.updateFields = this.updateFields.bind(this);
+        this.handleModal = this.handleModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
         this.submitData = this.submitData.bind(this);
 
 
-        this.state = { Title: '', Summary: '', Description: '', Date: '11.11.20', submission: false }
+        this.state = { Title: '', Summary: '', Description: '', Date: '11.11.20',openModal:false ,submission: false }
     }
 
 
@@ -36,10 +38,58 @@ export default class Home extends React.Component {
         _event.preventDefault();
         this.setState({ submission: true });
         //console.log(this.state.submission);
+        if (this.state.submission == true) {
+            closeModal()
+            console.log("close after submission")
+        }
+        
+    }
 
+
+    
+    handleModal()
+    {
+
+        this.setState({ openModal: true })
 
     }
 
+    modal() {
+
+        if (this.state.openModal == true)
+        {
+            return (
+                // use before selector to darken the  modal bg
+                <div className={styles.modal_background} >
+                    
+                    <form className={styles.modal}>
+                        <button onClick={this.closeModal}>X</button>
+                        <label htmlFor="title">
+                    <input placeholder="Title" name="Title" value={this.state.Title} onChange={this.updateFields} />
+                </label>
+
+                <label htmlFor="summary">
+                    <input placeholder="Summary" name="Summary" value={this.state.Summary} onChange={this.updateFields} />
+                </label>
+
+
+                <label htmlFor="date">
+                    <input placeholder="DD.MM.YY" name="Date" value={this.state.Date} onChange={this.updateFields} />
+                </label>
+
+                <button type="submit" onClick={this.submitData} > Add new Report </button>
+
+
+                    </form>
+                </div>)
+
+           
+        }
+    }
+
+    closeModal() {
+        this.setState({ openModal:false })
+    }
 
     NewReport() {
         <div className={styles.card}>
@@ -107,48 +157,25 @@ export default class Home extends React.Component {
 
                 <div className={styles.grid} >
 
-                    {this.displayReports()}
+                    {this.displayReports()},
 
 
+                    <button style={{ borderRadius: '20px', height: '40px', width: '40px' }} onClick={this.handleModal }>+</button>
+
+           
+
+    
+                        
+                    
+                    {this.modal()}
+                    
 
 
-
-
-                    <form>
-                        <label htmlFor="title">
-                            <input placeholder="Title" name="Title" value={this.state.Title} onChange={this.updateFields} />
-                        </label>
-
-                        <label htmlFor="summary">
-                            <input placeholder="Summary" name="Summary" value={this.state.Summary} onChange={this.updateFields} />
-                        </label>
-
-
-                        {/*<label htmlFor="description">*/}
-                        {/*    <input placeholder="Description" name="description" value={this.state.Description} onChange={this.updateFields} />*/}
-                        {/*</label>*/}
-
-                        <label htmlFor="date">
-                            <input placeholder="DD.MM.YY" name="Date" value={this.state.Date} onChange={this.updateFields} />
-                        </label>
-
-                        <button type="submit" onClick={this.submitData} > Add new Report </button>
-
-
-
-                        {/*        else if (this.state.submission == true)*/}
-
-                        {/*        {*/}
-                        {/*            this.setState({ submission: false });*/}
-                        {/*        console.log(this.state.submission);*/}
-
-                        {/*    //<Report title="Data not avaiable, report cannot be generated" />*/}
-                        {/*}                  */}
-
-
-
-
-                    </form>
+                    
+                
+                     
+ 
+                   
 
                 </div>
 
