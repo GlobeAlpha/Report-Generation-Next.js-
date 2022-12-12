@@ -103,49 +103,75 @@ export default class Home extends React.Component {
             <p>{this.state.Summary}</p>
             <p>{this.state.Description}</p>
             <p>{this.state.Date}</p>
-            {console.log("Report Generated")}
+            
         </div >
     }
 
-    displayReports() {
-        //<Link href="/ProgressReport1">
-        //<Link >
-        //<Link href="/ProgressReport3">
+   
+
+    displayReports()
+    {
+
+        
         var reports = [
-            //each link has to have key element so unless I want  to create a link inside the report  
-            <div key={1}>
-                <Link href="/ProgressReport1" key={1}>View Report</Link>
-                <Report Date="11.11.20" title="Progress Report#1" summary="Last known location of RCS#127:Saber is unknown, this report shows possible avenues of exploration." key={1}></Report>
-                
+
+            // add  id to each report  whihc will be later used to delete the report 
+            <div  key={1} >
+                <Link href="/ProgressReport1">View Report</Link>
+                <Report Date="11.11.20" title="Progress Report#1" summary="Last known location of RCS#127:Saber is unknown, this report shows possible avenues of exploration." id={1} deleteReport={this.deleteReport}></Report>
+
             </div>,
 
-           <div key={2}>
-                
-                <Link href="/ProgressReport2" key={2}>View Report</Link>
-                <Report Date="11.11.20" title="Progress Report#2" summary="3 possible locations have been established" key={2} contentEditable={this.state.edit} />,
-                
+            <div  key={2}>
+
+                <Link href="/ProgressReport2">View Report</Link>
+                <Report Date="11.11.20" title="Progress Report#2" summary="3 possible locations have been established" contentEditable={this.state.edit} id = {2}/>,
+
             </div>,
 
 
-            <div key = { 3 }>
+            <div  key = { 3 }>
                 
-                <Report Date="11.11.20" title="Progress Report#3" summary="3 possible locations have been established" key={3} >
-                    <Link href="/ProgressReport3" key={3}><button>View Report</button></Link>
+                <Report Date="11.11.20" title="Progress Report#3" summary="3 possible locations have been established" id={ 3}>
+                    <Link href="/ProgressReport3" ><button>View Report</button></Link>
                 </Report>
                  
             </div>
 
         ]
 
+
+        
+        // attempting to remove component from array using filter doesn't work 
+        
+
+       /* var removeReport = reports.filter(FirstReport)*/
+        //var Reports = reports.map(report => {
+        //    <div>{ report}</div>
+        //})
+
+
+
+       /* console.log(Reports)*/
+        // maybe pop off the report depedning on id 
+        //var newReportArray = reports.splice([reports.props.id])
+        //console.log(newReportArray)
+
         // Create Link for new dynamic route  by adding paramater as route  whihc will be will be filled in with dynamic after parsing
         if (this.state.submission == true) {
-            reports.push(<Link href="/title" key={4}><Report Date={this.state.Date} title={this.state.Title} summary={this.state.Summary} key={4} /></Link>)
+            reports.push(<Link href="/title" id={4} key={4}><Report Date={this.state.Date} title={this.state.Title} summary={this.state.Summary} key={4} /></Link>)
         }
 
+
+        // instead of rendering entire array map over the array whihc will alow id to be extracted from the list 
         return reports
+
+
+        
     }
 
-
+    // reports can only be accessed in displayReport so i need to find a way to access report array then  access element in array then  delete  array item
+    
 
     // render method is what mounts the jsx onto the dom 
     render() {
@@ -176,22 +202,11 @@ export default class Home extends React.Component {
                     {this.displayReports()},
 
 
-                    <button style={{ borderRadius: '20px', height: '40px', width: '40px' }} onClick={this.handleModal }>+</button>
-
-           
-
-    
-                        
+                    <button style={{ borderRadius: '20px', height: '40px', width: '40px' }} onClick={this.handleModal }>+</button>                        
                     
                     {this.modal()}
                     
 
-
-                    
-                
-                     
- 
-                   
 
                 </div>
 
